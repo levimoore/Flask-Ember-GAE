@@ -47,6 +47,7 @@ def contacts():
 	return jsonify(contacts=json_results)
 
 @app.route('/api/contacts/<int:contact_id>', methods = ['GET'])
+@apiheaders
 def contact(contact_id):
 	if request.method == 'GET':
 		result = Contact.get_by_id (contact_id, parent=None)
