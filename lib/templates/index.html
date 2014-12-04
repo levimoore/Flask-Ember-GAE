@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Flask and Ember on GAE</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% raw %}
+  <script type="text/x-handlebars">
+    <h2>Flask and Ember on GAE</h2>
+          <nav>
+        {{#link-to "index"}}Home{{/link-to}}
+        {{#link-to "contacts"}}Contacts{{/link-to}}
+        </nav>
+
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" id="index">
+    <ul>
+    {{#each item in model}}
+      <li>{{item}}</li>
+    {{/each}}
+    </ul>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="contacts">
+      <ul>
+        {{#each contact in controller}}
+          <li>
+            <p>
+             {{#link-to "contact" contact}}
+          {{contact.firstName}} {{contact.lastName}} {{/link-to}} </p>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+</script>
+  <script type="text/x-handlebars" data-template-name="contact">
+      <ul>
+        <li>
+            <h1><p>{{firstName}} {{lastName}} </p></h1>
+            <p>{{bday}}</p>
+            <p>{{zodiac}}</p>
+          </li>
+      </ul>
+    </div>
+</script>
+  {% endraw %}
+  <script src="{{ url_for('static', filename='js/libs/jquery-1.10.2.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/libs/handlebars-1.1.2.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/libs/ember-1.5.1.js') }}"></script>
+  <!--<script src="{{ url_for('static', filename='js/libs/ember-data.js') }}"></script>-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/ember-data.js/1.0.0-beta.12/ember-data.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <!-- to activate the test runner, add the "?test" query string parameter -->
+  <script src="{{ url_for('static', filename='js/tests/runner.js') }}"></script>
+
+</body>
+</html>
