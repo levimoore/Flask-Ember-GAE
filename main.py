@@ -62,6 +62,20 @@ def contact(contact_id):
 
 	return jsonify(contacts=json_results)
 
+@app.route('/api/contacts', methods = ['POST'])
+@apiheaders
+def create_task():
+    if not request.json:
+        abort(400)
+    contact = Contact({
+        'firstName': request.json['firstName'],
+        'lastName': request.json['lastName'],
+        'bday': request.json['bday'],
+        'zodiac': request.json['zodiac']
+    })
+    contact.put()
+    return jsonify(contacts=json_results)
+
 @app.errorhandler(404)
 def page_not_found(e):
     """Return a 404 error."""
