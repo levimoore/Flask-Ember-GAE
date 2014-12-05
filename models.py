@@ -14,3 +14,4 @@ class Contact(DictModel):
 	lastName = db.StringProperty(required=False)
 	bday = db.StringProperty(required=False)
 	zodiac = db.StringProperty(required=False)
+	photo = db.BlobProperty(required=False)
