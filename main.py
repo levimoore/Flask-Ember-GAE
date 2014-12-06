@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, make_response
+from flask import Flask, request, jsonify, render_template, make_response, json, redirect, url_for
 from models import Contact
 from functools import wraps
 from google.appengine.ext import db
@@ -65,16 +65,15 @@ def contact(contact_id):
 @app.route('/api/contacts', methods = ['POST'])
 @apiheaders
 def create_task():
-    if not request.json:
-        abort(400)
-    contact = Contact({
-        'firstName': request.json['firstName'],
-        'lastName': request.json['lastName'],
-        'bday': request.json['bday'],
-        'zodiac': request.json['zodiac']
+    contact = Contact(Contact={
+        'firstName': request.files['firstName'],
+        'lastName': request.files['lastName'],
+        'bday': request.files['bday'],
+        'zodiac': request.files['zodiac']
     })
     contact.put()
-    return jsonify(contacts=json_results)
+	resp = Response(js, status=200, mimetype='application/json')
+    return resp
 
 @app.errorhandler(404)
 def page_not_found(e):
