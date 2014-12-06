@@ -65,15 +65,14 @@ def contact(contact_id):
 @app.route('/api/contacts', methods = ['POST'])
 @apiheaders
 def create_task():
-    contact = Contact(Contact={
-        'firstName': request.files['firstName'],
-        'lastName': request.files['lastName'],
-        'bday': request.files['bday'],
-        'zodiac': request.files['zodiac']
-    })
+    contact = Contact(
+        firstName = request.json['firstName'],
+        lastName = request.json['lastName'],
+        bday = request.json['bday'],
+        zodiac = request.json['zodiac']
+    )
     contact.put()
-	resp = Response(js, status=200, mimetype='application/json')
-    return resp
+    return redirect(url_for('index'))
 
 @app.errorhandler(404)
 def page_not_found(e):
