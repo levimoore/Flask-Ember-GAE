@@ -14,6 +14,7 @@
           <nav>
         {{#link-to "index"}}Home{{/link-to}}
         {{#link-to "contacts"}}Contacts{{/link-to}}
+        {{#link-to "new"}}Add Contact{{/link-to}}
         </nav>
 
     {{outlet}}
@@ -26,7 +27,16 @@
     {{/each}}
     </ul>
   </script>
-
+  <script type="text/x-handlebars" data-template-name="new">
+  <div>
+        <p>{{input type="text" class="firstName" placeholder="First Name" value=firstName}}</p>
+        <p>{{input type="text" class="lastName" placeholder="Last Name" value=lastName}}</p>
+        <p>{{input type="text" class="firstName" placeholder="Birthday" value=bday}}</p>
+        <p>{{input type="text" class="firstName" placeholder="Zodiac" value=zodiac}}</p>
+        <button class="btn btn-primary btn-sm new-artist-button" {{action "createContact"}}
+          {{bind-attr disabled=disabled}}>Add</button>
+      </div>
+</script>
   <script type="text/x-handlebars" data-template-name="contacts">
       <ul>
         {{#each contact in controller}}
@@ -49,6 +59,7 @@
       </ul>
     </div>
 </script>
+
   {% endraw %}
   <script src="{{ url_for('static', filename='js/libs/jquery-1.10.2.js') }}"></script>
   <script src="{{ url_for('static', filename='js/libs/handlebars-1.1.2.js') }}"></script>
