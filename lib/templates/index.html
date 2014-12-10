@@ -14,12 +14,12 @@
           <nav>
         {{#link-to "index"}}Home{{/link-to}}
         {{#link-to "contacts"}}Contacts{{/link-to}}
-        {{#link-to "new"}}Add Contact{{/link-to}}
+        {{#link-to "contacts.new"}}Add Contact{{/link-to}}
         </nav>
 
     {{outlet}}
-  </script>
 
+  </script>
   <script type="text/x-handlebars" id="index">
     <ul>
     {{#each item in model}}
@@ -27,17 +27,8 @@
     {{/each}}
     </ul>
   </script>
-  <script type="text/x-handlebars" data-template-name="new">
-  <div>
-        <p>{{input type="text" class="firstName" placeholder="First Name" value=firstName}}</p>
-        <p>{{input type="text" class="lastName" placeholder="Last Name" value=lastName}}</p>
-        <p>{{input type="text" class="firstName" placeholder="Birthday" value=bday}}</p>
-        <p>{{input type="text" class="firstName" placeholder="Zodiac" value=zodiac}}</p>
-        <button class="btn btn-primary btn-sm new-artist-button" {{action "createContact"}}
-          {{bind-attr disabled=disabled}}>Add</button>
-      </div>
-</script>
-  <script type="text/x-handlebars" data-template-name="contacts">
+
+  <script type="text/x-handlebars" data-template-name="contacts/index">
       <ul>
         {{#each contact in controller}}
           <li>
@@ -48,7 +39,23 @@
         {{/each}}
       </ul>
     </div>
+    {{outlet}}
 </script>
+
+  <script type="text/x-handlebars" data-template-name="contacts/new">
+  {{outlet}}
+  <div>
+    <form {{action save on="submit"}}>
+      <p>{{input type="text" class="firstName" placeholder="First Name" value=firstName}}</p>
+        <p>{{input type="text" class="lastName" placeholder="Last Name" value=lastName}}</p>
+        <p>{{input type="text" class="firstName" placeholder="Birthday" value=bday}}</p>
+        <p>{{input type="text" class="firstName" placeholder="Zodiac" value=zodiac}}</p>    
+      <button type="submit">Update post</button>
+    </form>
+
+      </div>
+</script>
+
   <script type="text/x-handlebars" data-template-name="contact">
       <ul>
         <li>
