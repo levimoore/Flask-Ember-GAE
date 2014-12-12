@@ -7,30 +7,31 @@ from google.appengine.api.datastore import Key
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-def add_response_headers(headers={}):
-    """This decorator adds the headers passed in to the response"""
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            resp = make_response(f(*args, **kwargs))
-            h = resp.headers
-            for header, value in headers.items():
-                h[header] = value
-            return resp
-        return decorated_function
-    return decorator
+def crossdomain(origin=None, methods=None, headers=None,
+                max_age=21600, attach_to_all=True,
+                automatic_options=True):
+    if methods is not None:
+        methods = ', '.join(sorted(x.upper() for x in methods))
+    if headers is not None and not isinstance(headers, basestring):
+        headers = ', '.join(x.upper() for x in headers)
+    if not isinstance(origin, basestring):
+        origin = ', '.join(origin)
+    if isinstance(max_age, timedelta):
+        max_age = max_age.total_seconds()
 
-def apiheaders(f):
-    """This decorator passes UTF8"""
-    return add_response_headers({'X-Requested-With': 'XMLHttpRequest',
-    							  'content-type': 'text/javascript, charset=utf-8'})(f)
+    def get_methods():
+        if methods is not None:
+            return methods
+
+        options_resp = current_app.make_default_options_response()
+        return options_resp.headers['allow']
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/api/contacts', methods = ['GET'])
-@apiheaders
+@crossdomain(origin='*')
 def contacts():
 	if request.method == 'GET':
 		results = Contact.all()
@@ -47,7 +48,7 @@ def contacts():
 	return jsonify(contacts=json_results)
 
 @app.route('/api/contacts/<int:contact_id>', methods = ['GET'])
-@apiheaders
+@crossdomain(origin='*')
 def contact(contact_id):
 	if request.method == 'GET':
 		result = Contact.get_by_id (contact_id, parent=None)
@@ -63,7 +64,7 @@ def contact(contact_id):
 	return jsonify(contacts=json_results)
 
 @app.route('/api/contacts', methods = ['POST'])
-@apiheaders
+@crossdomain(origin='*')
 def create_task():
     contact = Contact(
         firstName = request.json['firstName'],
