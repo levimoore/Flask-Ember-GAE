@@ -30,7 +30,7 @@ def crossdomain(origin=None, methods=None, headers=None,
 def index():
     return render_template('index.html')
 
-@app.route('/api/contacts', methods = ['GET'])
+@app.route('/api/contacts', methods = ['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def contacts():
 	if request.method == 'GET':
@@ -47,7 +47,7 @@ def contacts():
 
 	return jsonify(contacts=json_results)
 
-@app.route('/api/contacts/<int:contact_id>', methods = ['GET'])
+@app.route('/api/contacts/<int:contact_id>', methods = ['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def contact(contact_id):
 	if request.method == 'GET':
@@ -63,7 +63,7 @@ def contact(contact_id):
 
 	return jsonify(contacts=json_results)
 
-@app.route('/api/contacts', methods = ['POST'])
+@app.route('/api/contacts', methods = ['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def create_task():
     contact = Contact(
@@ -77,5 +77,4 @@ def create_task():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    """Return a 404 error."""
-    return 'Sorry, nothing at this URL.', 404
+    return redirect(url_for('index'))
