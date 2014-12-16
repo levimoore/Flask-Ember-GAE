@@ -11,44 +11,15 @@
 <body>
     {% raw %}
   <script type="text/x-handlebars">
-<div class="navbar-default sidebar" role="navigation">
-   <div id="logo"> <img src="/assets/images/logo.png"/></div>
-                <div class="sidebar-nav navbar-collapse">
-                    <div><h4>Flask Ember GAE</h4></div>
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            {{#link-to "tickets"}}Tickets{{/link-to}}
-                        </li>
-                        <li>
-                            {{#link-to "calendar"}}Calendar{{/link-to}}
-                        </li>
-                        <li>
-                            {{#link-to "zoom"}}Zoom{{/link-to}}
-                        </li>
-                        <li>
-                            {{#link-to "echo"}}Echo360{{/link-to}}
-                        </li>
-                        <li>
-                            {{#link-to "polycom"}}Polycom{{/link-to}}
-                        </li>
-                        <li>
-                            {{#link-to "printers"}}Printers{{/link-to}}
-                        </li>
-                        <li>
-                            {{#link-to "laptops"}}Laptops{{/link-to}}
-                        </li>
-                        <li>
-                            {{#link-to "classrooms"}}Classrooms{{/link-to}}
-                        </li>
-                                                                                            
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-          {{outlet}}
-                <!-- /.col-lg-12 -->
-</div>
+    <h2>Flask and Ember on GAE</h2>
+          <nav>
+        {{#link-to "index"}}Home{{/link-to}}
+        {{#link-to "contacts"}}Contacts{{/link-to}}
+        {{#link-to "contacts.new"}}Add Contact{{/link-to}}
+        </nav>
+
+    {{outlet}}
+
   </script>
   <script type="text/x-handlebars" id="index">
     <ul>
