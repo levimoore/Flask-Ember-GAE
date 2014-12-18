@@ -19,9 +19,9 @@ App.Contact = DS.Model.extend({
 
 // Routes
 App.Router.map(function(){
-  this.resource('contacts',  function() {
+  this.route('contacts',  function() {
     this.route('new', {path: '/new'});
-  this.resource('contact', { path: '/contact/:contact_id' });
+  this.route('contact', { path: '/:contact_id' });
   });
 });
 
