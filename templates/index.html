@@ -51,7 +51,21 @@
         <p>{{input type="text" class="lastName" placeholder="Last Name" value=lastName}}</p>
         <p>{{input type="text" class="firstName" placeholder="Birthday" value=bday}}</p>
         <p>{{input type="text" class="firstName" placeholder="Zodiac" value=zodiac}}</p>    
-      <button type="submit">Update post</button>
+      <button type="submit">Save Contact</button>
+    </form>
+
+      </div>
+</script>
+
+  <script type="text/x-handlebars" data-template-name="contacts/edit">
+  {{outlet}}
+  <div>
+    <form {{action update on="submit"}}>
+      <p>{{input type="text" class="firstName" placeholder="First Name" value=firstName}}</p>
+        <p>{{input type="text" class="lastName" placeholder="Last Name" value=lastName}}</p>
+        <p>{{input type="text" class="firstName" placeholder="Birthday" value=bday}}</p>
+        <p>{{input type="text" class="firstName" placeholder="Zodiac" value=zodiac}}</p>    
+      <button type="submit">Update</button>
     </form>
 
       </div>

@@ -22,6 +22,7 @@ App.Router.map(function(){
   this.route('contacts',  function() {
     this.route('new', {path: '/new'});
   this.route('contact', { path: '/:contact_id' });
+  this.route('edit', {path: '/:contact_id'});
   });
 });
 
@@ -36,6 +37,12 @@ App.ContactRoute = Ember.Route.extend({
     return this.store.find('contact', params.contact_id);
   }
 });
+
+App.EditRoute = Ember.Route.extend({
+  model: function(params) {
+    return this.store.find('contact', params.contact_id);
+  }
+})
 
 App.ContactsRoute = Ember.Route.extend({
   model: function(){
@@ -70,8 +77,29 @@ App.ContactsNewController = Ember.ObjectController.extend({
       this.set('zodiac');
       contact.save();
 
-      Ember.$.ajax('http://localhost:21080/api/contacts', {
+      Ember.$.ajax('http://localhost:<add the port assigned you by GAELauncher here>/api/contacts', {
         type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify({firstName: firstName, lastName: lastName, bday: bday, zodiac: zodiac}),
+      });
+        _this.transitionToRoute('contacts');
+  }
+}
+});
+
+App.ContactsEditController = Ember.ObjectController.extend({
+  actions: {
+    update: function() {
+      var firstName = this.get('firstName');
+      var lastName = this.get('lastName');
+      var bday = this.get('bday');
+      var zodiac = this.get('zodiac');
+      var id = this.get('id');
+      var _this = this;
+
+      Ember.$.ajax('http://localhost:<add the port assigned you by GAELauncher here>/api/contacts'+ id, {
+        type: 'PUT',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         data: JSON.stringify({firstName: firstName, lastName: lastName, bday: bday, zodiac: zodiac}),
