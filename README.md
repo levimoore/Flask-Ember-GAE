@@ -22,7 +22,7 @@ Launch the Google App Engine Launcher application. Choose File>Add Exsisting App
 
 ###Update Ember Application
 
-On line 8 of the app.js file fill out the port number assigned to you by the Google App Engine Launcher
+On line 8, 80, and 101 of the app.js file fill out the port number assigned to you by the Google App Engine Launcher
 
 	  host: 'http://localhost:<add the port assigned you by GoogleAppEngineLauncher here>'
 	  
